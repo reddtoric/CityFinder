@@ -7,13 +7,10 @@ namespace CityFinder.Business
 {
     public static class UsaCityFinder
     {
-        // Free version js key
-        private static readonly string zipApiKey = "js-fee1752ae90c41faa7900028379599e3";
-
         public static async Task<Location> GetCity(Location location)
         {
             // Build url
-            string url = $"https://service.zipapi.us/zipcode/{location.ZipCode}?X-API-KEY={zipApiKey}&fields=geolocation,population";
+            string url = $"https://service.zipapi.us/zipcode/{location.ZipCode}?X-API-KEY={ApiKeys.ZipApiJsKey}&fields=geolocation,population";
 
             // Retrieve info from zipapi.us
             string response = await HttpAccess.GetContentAsync(url);
