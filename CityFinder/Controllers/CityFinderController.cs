@@ -20,7 +20,7 @@ namespace CityFinder.Controllers
 
             if (country == "United States")
             {
-                location = await UsaCityFinder.GetCity(location);
+                return Ok(await UsaCityFinder.GetCity(location));
             }
 
             return Ok(location);

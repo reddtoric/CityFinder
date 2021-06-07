@@ -9,25 +9,24 @@ namespace CityFinder.Business
     {
         public static async Task<Location> GetCity(Location location)
         {
-            // Build url
             string url = $"https{":"}//service.zipapi.us/zipcode/{location.ZipCode}?X-API-KEY={ApiKeys.ZipApiJsKey}";
 
-            // Retrieve info from zipapi.us
             string response = await HttpAccess.GetContentAsync(url);
-
-            // Convert string to json object
             var responseObject = JObject.Parse(response);
-
-            // Get the data field in the response
             var data = responseObject.GetValue("data");
 
             if (data != null)
             {
-                // Add retrieved city into return object
-                location.City = data.ToObject<Location>().City;
-                location.IsFound = true;
+                return new Location()
+                {
+                    City = data.ToObject<Location>().City,
+                    Country = location.Country,
+                    ZipCode = location.ZipCode,
+                    IsFound = true
+                };
             }
 
+            // City not found, return original data
             return location;
         }
     }
