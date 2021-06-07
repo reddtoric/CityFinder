@@ -14,21 +14,23 @@ namespace CityFinder.Business
             // Build url
             string url = $"https://service.zipapi.us/zipcode/{location.ZipCode}?X-API-KEY={zipApiKey}&fields=geolocation,population";
 
-            // Retrieve location data from zipapi.us
-            string data = await HttpAccess.GetContentAsync(url);
+            // Retrieve info from zipapi.us
+            string response = await HttpAccess.GetContentAsync(url);
+
+            // Convert string to json object
+            var responseObject = JObject.Parse(response);
+
+            // Get the data field in the response
+            var data = responseObject.GetValue("data");
 
             if (data != null)
             {
-                // Convert string to json object
-                var dataObject = JObject.Parse(data);
-
                 // Add retrieved city into return object
-                location.City = dataObject.GetValue("data").ToObject<Location>().City;
-
-                return location;
+                location.City = data.ToObject<Location>().City;
+                location.IsFound = true;
             }
 
-            return null;
+            return location;
         }
     }
 }

@@ -16,17 +16,14 @@ namespace CityFinder.Controllers
         [HttpGet]
         public async Task<ActionResult<Location>> Get(string country, string zipcode)
         {
+            Location location = new Location() { Country = country, ZipCode = zipcode };
+
             if (country == "United States")
             {
-                Location location = await UsaCityFinder.GetCity(new Location() { Country = country, ZipCode = zipcode });
-
-                if (location != null)
-                {
-                    return Ok(location);
-                }
+                location = await UsaCityFinder.GetCity(location);
             }
 
-            return NotFound();
+            return Ok(location);
         }
     }
 }
