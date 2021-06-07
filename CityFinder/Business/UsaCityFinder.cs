@@ -10,7 +10,7 @@ namespace CityFinder.Business
         public static async Task<Location> GetCity(Location location)
         {
             // Build url
-            string url = $"https://service.zipapi.us/zipcode/{location.ZipCode}?X-API-KEY={ApiKeys.ZipApiJsKey}&fields=geolocation,population";
+            string url = $"https{":"}//service.zipapi.us/zipcode/{location.ZipCode}?X-API-KEY={ApiKeys.ZipApiJsKey}";
 
             // Retrieve info from zipapi.us
             string response = await HttpAccess.GetContentAsync(url);
