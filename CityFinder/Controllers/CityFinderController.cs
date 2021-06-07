@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using CityFinder.Business;
 using CityFinder.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,9 +14,19 @@ namespace CityFinder.Controllers
         }
 
         [HttpGet]
-        public async Task<Location> Get(string country, string zipcode)
+        public async Task<ActionResult<Location>> Get(string country, string zipcode)
         {
-            return null;
+            if (country == "United States")
+            {
+                Location location = await UsaCityFinder.GetCity(new Location() { Country = country, ZipCode = zipcode });
+
+                if (location != null)
+                {
+                    return Ok(location);
+                }
+            }
+
+            return NotFound();
         }
     }
 }
