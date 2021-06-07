@@ -1,59 +1,90 @@
 import React, { Component } from 'react';
 
 export class FetchData extends Component {
-  static displayName = FetchData.name;
+    static displayName = FetchData.name;
 
-  constructor(props) {
-    super(props);
-    this.state = { forecasts: [], loading: true };
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            locations: [],
+            loading: true,
+            zipcode: '',
+            country: 'United States'
+        };
 
-  componentDidMount() {
-    this.populateWeatherData();
-  }
+        this.handleZipChange = this.handleZipChange.bind(this);
+        this.handleCountryChange = this.handleCountryChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
 
-  static renderForecastsTable(forecasts) {
-    return (
-      <table className='table table-striped' aria-labelledby="tabelLabel">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Temp. (C)</th>
-            <th>Temp. (F)</th>
-            <th>Summary</th>
-          </tr>
-        </thead>
-        <tbody>
-          {forecasts.map(forecast =>
-            <tr key={forecast.date}>
-              <td>{forecast.date}</td>
-              <td>{forecast.temperatureC}</td>
-              <td>{forecast.temperatureF}</td>
-              <td>{forecast.summary}</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-    );
-  }
+    handleZipChange(event) {
+        this.setState({ zipcode: event.target.value });
+    }
 
-  render() {
-    let contents = this.state.loading
-      ? <p><em>Loading...</em></p>
-      : FetchData.renderForecastsTable(this.state.forecasts);
+    handleCountryChange(event) {
+        this.setState({ country: event.target.value });
+    }
 
-    return (
-      <div>
-        <h1 id="tabelLabel" >Weather forecast</h1>
-        <p>This component demonstrates fetching data from the server.</p>
-        {contents}
-      </div>
-    );
-  }
+    handleSubmit(event) {
+        //alert('Searching city in ' + this.state.country + ' with zip code ' + this.state.zipcode);
+        event.preventDefault();
+        this.populateData();
+    }
 
-  async populateWeatherData() {
-    const response = await fetch('weatherforecast');
-    const data = await response.json();
-    this.setState({ forecasts: data, loading: false });
-  }
+    static renderTable(locations) {
+        return (
+            <table className='table table-striped' aria-labelledby="tabelLabel">
+                <thead>
+                    <tr>
+                        <th>Zip Code</th>
+                        <th>City</th>
+                        <th>Country</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {locations.map((location, index) =>
+                        <tr key={index} >
+                            <td>{location.zipCode}</td>
+                            <td>{location.isFound ? location.city : "Not Found"}</td>
+                            <td>{location.country}</td>
+                        </tr>
+                    )}
+                </tbody>
+            </table>
+        );
+    }
+
+    render() {
+        let contents = this.state.loading
+            ? <p><em>No searches results yet.</em></p> 
+            : FetchData.renderTable(this.state.locations);
+
+        return (
+            <div>
+                <h1 id="tabelLabel" >City Finder</h1>
+                <p>The only country that will return a city with a valid zip code is "United States".</p>
+                <p>Limited 10 searches per hour.</p>
+                <form onSubmit={this.handleSubmit} >
+                    <label>
+                        Country:
+                        <input type="text" name="country" value={this.state.country} onChange={this.handleCountryChange} />
+                    </label>
+                    <br />
+                    <label>
+                        Zip Code:
+                    <input type="text" name="zipcode" value={this.state.zipcode} onChange={this.handleZipChange} />
+                    </label>
+                    <br />
+                    <input type="submit" value="Search" />
+                </form>
+                {contents}
+            </div>
+        );
+    }
+
+    async populateData() {
+        const response = await fetch('api/cityfinder?country=' + this.state.country + '&zipcode=' + this.state.zipcode); /// same as '...api/cityfinder'
+        const data = await response.json();
+        this.setState({ locations: [data,...this.state.locations], loading: false });
+    }
 }
