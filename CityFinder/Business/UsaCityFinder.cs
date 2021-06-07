@@ -7,6 +7,7 @@ namespace CityFinder.Business
 {
     public static class UsaCityFinder
     {
+        // Free version js key
         private static readonly string zipApiKey = "js-fee1752ae90c41faa7900028379599e3";
 
         public static async Task<Location> GetCity(Location location)
