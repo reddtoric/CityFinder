@@ -62,8 +62,8 @@ export class FetchData extends Component {
         return (
             <div>
                 <h1 id="tabelLabel" >City Finder</h1>
-                <p>The only country that will return a city with a valid zip code is "United States".</p>
-                <p>Limited 10 searches per hour.</p>
+                <p>The only country that will return a city with a valid zip code is "United States". (case sensitive)</p>
+                <p>Limited 10 searches per hour. After limit, valid inputs will still return not found.</p>
                 <form onSubmit={this.handleSubmit} >
                     <label>
                         Country:
