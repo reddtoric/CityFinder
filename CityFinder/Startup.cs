@@ -1,4 +1,5 @@
 using CityFinder.Business;
+using CityFinder.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
@@ -29,6 +30,7 @@ namespace CityFinder
             });
 
             services.AddScoped<UsaCityFinder>();
+            services.Configure<Keys>(Configuration.GetSection(nameof(Keys)));
 
             services.AddHttpClient();
         }

@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 using CityFinder.Models;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Linq;
 
 namespace CityFinder.Business
@@ -9,17 +9,17 @@ namespace CityFinder.Business
     public class UsaCityFinder
     {
         private readonly IHttpClientFactory _clientFactory;
-        private readonly string _zipApiKey = null;
+        private readonly Keys _keys;
 
-        public UsaCityFinder(IConfiguration configuration, IHttpClientFactory clientFactory)
+        public UsaCityFinder(IOptions<Keys> options, IHttpClientFactory clientFactory)
         {
             _clientFactory = clientFactory;
-            _zipApiKey = configuration["ZipApiKey"];
+            _keys = options.Value;
         }
 
         public async Task<Location> GetCity(Location location)
         {
-            string url = $"https{":"}//service.zipapi.us/zipcode/{location.ZipCode}?X-API-KEY={_zipApiKey}";
+            string url = $"https{":"}//service.zipapi.us/zipcode/{location.ZipCode}?X-API-KEY={_keys.ZipApiKey}";
             var request = new HttpRequestMessage(HttpMethod.Get, url);
 
             var client = _clientFactory.CreateClient();
