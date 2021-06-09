@@ -9,7 +9,7 @@ namespace CityFinder.Controllers
     [Route("api/[controller]")]
     public class CityFinderController : ControllerBase
     {
-        private UsaCityFinder _usaCityFinder;
+        private readonly UsaCityFinder _usaCityFinder;
 
         public CityFinderController(UsaCityFinder usaCityFinder)
         {
@@ -19,7 +19,7 @@ namespace CityFinder.Controllers
         [HttpGet]
         public async Task<ActionResult<Location>> Get(string country, string zipcode)
         {
-            Location location = new Location() { Country = country, ZipCode = zipcode };
+            Location location = new() { Country = country, ZipCode = zipcode };
 
             if (country == "United States")
             {
