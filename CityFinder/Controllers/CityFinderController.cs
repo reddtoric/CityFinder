@@ -9,8 +9,11 @@ namespace CityFinder.Controllers
     [Route("api/[controller]")]
     public class CityFinderController : ControllerBase
     {
-        public CityFinderController()
+        private UsaCityFinder _usaCityFinder;
+
+        public CityFinderController(UsaCityFinder usaCityFinder)
         {
+            _usaCityFinder = usaCityFinder;
         }
 
         [HttpGet]
@@ -20,7 +23,7 @@ namespace CityFinder.Controllers
 
             if (country == "United States")
             {
-                return Ok(await UsaCityFinder.GetCity(location));
+                return Ok(await _usaCityFinder.GetCity(location));
             }
 
             return Ok(location);

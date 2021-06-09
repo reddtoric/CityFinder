@@ -1,15 +1,23 @@
 ﻿using System.Threading.Tasks;
 using CityFinder.Models;
 using CityFinder.Support;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Linq;
 
 namespace CityFinder.Business
 {
-    public static class UsaCityFinder
+    public class UsaCityFinder
     {
-        public static async Task<Location> GetCity(Location location)
+        private readonly string _zipApiKey = null;
+
+        public UsaCityFinder(IConfiguration configuration)
         {
-            string url = $"https{":"}//service.zipapi.us/zipcode/{location.ZipCode}?X-API-KEY={ApiKeys.ZipApiJsKey}";
+            _zipApiKey = configuration["ZipApiKey"];
+        }
+
+        public async Task<Location> GetCity(Location location)
+        {
+            string url = $"https{":"}//service.zipapi.us/zipcode/{location.ZipCode}?X-API-KEY={_zipApiKey}";
 
             string response = await HttpAccess.GetContentAsync(url);
             var responseObject = JObject.Parse(response);
