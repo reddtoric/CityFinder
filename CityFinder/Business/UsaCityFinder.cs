@@ -8,21 +8,21 @@ namespace CityFinder.Business
 {
     public class UsaCityFinder
     {
-        private readonly IHttpClientFactory _clientFactory;
-        private readonly Keys _keys;
+        private readonly IHttpClientFactory clientFactory;
+        private readonly Keys keys;
 
         public UsaCityFinder(IOptions<Keys> options, IHttpClientFactory clientFactory)
         {
-            _clientFactory = clientFactory;
-            _keys = options.Value;
+            this.clientFactory = clientFactory;
+            this.keys = options.Value;
         }
 
         public async Task<Location> GetCity(Location location)
         {
-            string url = $"https{":"}//service.zipapi.us/zipcode/{location.ZipCode}?X-API-KEY={_keys.ZipApiKey}";
+            string url = $"https{":"}//service.zipapi.us/zipcode/{location.ZipCode}?X-API-KEY={keys.ZipApiKey}";
             var request = new HttpRequestMessage(HttpMethod.Get, url);
 
-            var client = _clientFactory.CreateClient();
+            var client = clientFactory.CreateClient();
             var response = await client.SendAsync(request);
 
             if (response.IsSuccessStatusCode)
