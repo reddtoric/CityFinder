@@ -38,7 +38,6 @@ namespace CityFinder.Business
                         City = retrievedData.City,
                         Country = location.Country,
                         ZipCode = location.ZipCode,
-                        IsFound = true,
                         Latitude = retrievedData.Latitude,
                         Longitude = retrievedData.Longitude
                     };

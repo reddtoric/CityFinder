@@ -49,7 +49,7 @@ export class FetchData extends Component {
                 </thead>
                 <tbody>
                     <td>{location.zipCode}</td>
-                    <td>{location.isFound ? location.city : "Not Found"}</td>
+                    <td>{location.city == null ? "Not Found" : location.city}</td>
                     <td>{location.country}</td>
                 </tbody>
             </table>
@@ -90,7 +90,7 @@ export class FetchData extends Component {
     }
 
     async populateData() {
-        const response = await fetch('api/cityfinder?country=' + this.state.country + '&zipcode=' + this.state.zipcode); /// same as '...api/cityfinder'
+        const response = await fetch('api/cityfinder?country=' + this.state.country + '&zipcode=' + this.state.zipcode);
         const data = await response.json();
         this.setState({ location: data, loading: false });
     }
