@@ -19,7 +19,7 @@ namespace CityFinder.Business
 
         public async Task<Location> GetCity(Location location)
         {
-            string url = $"https{":"}//service.zipapi.us/zipcode/{location.ZipCode}?X-API-KEY={keys.ZipApiKey}";
+            string url = $"https{":"}//service.zipapi.us/zipcode/{location.ZipCode}?X-API-KEY={keys.ZipApiKey}&fields=geolocation";
             var request = new HttpRequestMessage(HttpMethod.Get, url);
 
             var client = clientFactory.CreateClient();
@@ -32,12 +32,15 @@ namespace CityFinder.Business
 
                 if (data != null)
                 {
+                    var retrievedData = data.ToObject<Location>();
                     return new Location()
                     {
-                        City = data.ToObject<Location>().City,
+                        City = retrievedData.City,
                         Country = location.Country,
                         ZipCode = location.ZipCode,
-                        IsFound = true
+                        IsFound = true,
+                        Latitude = retrievedData.Latitude,
+                        Longitude = retrievedData.Longitude
                     };
                 }
             }
