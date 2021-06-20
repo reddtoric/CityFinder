@@ -10,7 +10,7 @@ export class FetchData extends Component {
             location: null,
             loading: true,
             zipcode: '',
-            country: 'United States'
+            country: 'US'
         };
 
         this.handleZipChange = this.handleZipChange.bind(this);
@@ -48,9 +48,11 @@ export class FetchData extends Component {
                     </tr>
                 </thead>
                 <tbody>
-                    <td>{location.zipCode}</td>
-                    <td>{location.city == null ? "Not Found" : location.city}</td>
-                    <td>{location.country}</td>
+                    <tr>
+                        <td>{location.postal_code}</td>
+                        <td>{location.city}</td>
+                        <td>{location.country_code}</td>
+                    </tr>
                 </tbody>
             </table>
         );
@@ -68,8 +70,7 @@ export class FetchData extends Component {
         return (
             <div>
                 <h1 id="tabelLabel" >City Finder</h1>
-                <p>The only country input that will return a city with a valid zip code is "United States". (case sensitive)</p>
-                <p>Limited 10 searches per hour so after limit is reached, valid inputs will still return not found.</p>
+                <p>Enter 2 letter country code.</p>
                 <form onSubmit={this.handleSubmit} >
                     <label>
                         Country:
