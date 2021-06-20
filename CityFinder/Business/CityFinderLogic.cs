@@ -26,15 +26,16 @@ namespace CityFinder.Business
             string url = $"https{":"}//app.zipcodebase.com/api/v1/search?apikey={keys.ZipApiKey}&codes={query.ZipCode}&country={query.CountryCode}";
             
             HttpClient client = clientFactory.CreateClient();
-            ZipApiResponse response = await client.GetFromJsonAsync<ZipApiResponse>(url);
-
-            List<Location> _locations;
-            response.Results.TryGetValue(query.ZipCode, out _locations);
-
-            if (_locations != null)
+            try
             {
-                return _locations[0];
+                ZipApiResponse response = await client.GetFromJsonAsync<ZipApiResponse>(url);
+
+                if (response.Results.TryGetValue(query.ZipCode, out List<Location> locations))
+                {
+                    return locations[0];
+                }
             }
+            catch (System.Exception) { }
 
             return null;
         }
