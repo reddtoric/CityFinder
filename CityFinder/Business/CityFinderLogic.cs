@@ -1,12 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using CityFinder.Models;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace CityFinder.Business
 {
@@ -24,7 +21,7 @@ namespace CityFinder.Business
         public async Task<Location> GetCity(Query query)
         {
             string url = $"https{":"}//app.zipcodebase.com/api/v1/search?apikey={keys.ZipApiKey}&codes={query.ZipCode}&country={query.CountryCode}";
-            
+
             HttpClient client = clientFactory.CreateClient();
             try
             {
