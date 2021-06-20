@@ -60,16 +60,16 @@ export class FetchData extends Component {
 
     render() {
         let contents = this.state.loading
-            ? <p><em>No searches results yet.</em></p> 
+            ? <p><em>No search results found.</em></p> 
             : FetchData.renderTable(this.state.location);
 
         let map = this.state.loading
-            ? <p><em>No searches results yet for map.</em></p>
+            ? <p><em>No search results for map.</em></p>
             : FetchData.renderMap(this.state.location);
 
         return (
             <div>
-                <h1 id="tabelLabel" >City Finder</h1>
+                <h1 id="tableLabel" >City Finder</h1>
                 <p>Enter 2 letter country code.</p>
                 <form onSubmit={this.handleSubmit} >
                     <label>
@@ -92,7 +92,12 @@ export class FetchData extends Component {
 
     async populateData() {
         const response = await fetch('api/cityfinder?country=' + this.state.country + '&zipcode=' + this.state.zipcode);
-        const data = await response.json();
-        this.setState({ location: data, loading: false });
+        if (response.status === 200) {
+            const data = await response.json();
+            this.setState({ location: data, loading: false });
+        }
+        else {
+            this.setState({ location: null, loading: true });
+        }
     }
 }
