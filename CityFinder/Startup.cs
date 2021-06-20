@@ -29,7 +29,7 @@ namespace CityFinder
                 configuration.RootPath = "ClientApp/build";
             });
 
-            services.AddScoped<UsaCityFinder>();
+            services.AddScoped<CityFinderLogic>();
             services.Configure<Keys>(Configuration.GetSection(nameof(Keys)));
 
             services.AddHttpClient();
