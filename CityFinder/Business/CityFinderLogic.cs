@@ -20,7 +20,7 @@ namespace CityFinder.Business
 
         public async Task<Location> GetCity(Query query)
         {
-            string url = $"https{":"}//app.zipcodebase.com/api/v1/search?apikey={keys.ZipApiKey}&codes={query.ZipCode}&country={query.CountryCode}";
+            string url = $"https{":"}//app.zipcodebase.com/api/v1/search?apikey={keys.ZipcodebaseApiKey}&codes={query.ZipCode}&country={query.CountryCode}";
 
             HttpClient client = clientFactory.CreateClient();
             try
