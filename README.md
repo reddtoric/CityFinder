@@ -6,7 +6,8 @@ Project deployed at [https://app-test-one.azurewebsites.net/](https://app-test-o
 
 ## Frameworks/Libraries/APIs used
 
-- [zipapi.us API](https://zipapi.us) (US zipcode searches)
+- [zipcodebase.com API](zipcodebase.com) (zipcode searches)
+- (Previously) [zipapi.us API](https://zipapi.us) (US zipcode searches)
 - [React Google Maps API](https://www.npmjs.com/package/@react-google-maps/api)
 - [Google Maps API](https://developers.google.com/maps)
 - ReactJS
@@ -25,5 +26,6 @@ Project deployed at [https://app-test-one.azurewebsites.net/](https://app-test-o
 - `dotnet user-secrets` to store development secrets such as keys
 - Use `Microsoft.Extensions.DependencyInjection`, `... .Configurations`, and `... .Options` to access development and production keys
 - Practice publishing on Azure
-- Setup CI/CD GitHub Actions for Azure
-- Setup API access restrictions
+- Set up CI/CD using GitHub action workflows to deploy to Azure App service
+- Configure Google Maps API access restrictions
+- Set up zipcodebase.com API key in the Azure app configuration
