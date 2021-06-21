@@ -10,7 +10,7 @@ export class FetchData extends Component {
             location: null,
             loading: true,
             zipcode: '',
-            country: 'United States'
+            country: 'US'
         };
 
         this.handleZipChange = this.handleZipChange.bind(this);
@@ -48,9 +48,11 @@ export class FetchData extends Component {
                     </tr>
                 </thead>
                 <tbody>
-                    <td>{location.zipCode}</td>
-                    <td>{location.city == null ? "Not Found" : location.city}</td>
-                    <td>{location.country}</td>
+                    <tr>
+                        <td>{location.postal_code}</td>
+                        <td>{location.city}</td>
+                        <td>{location.country_code}</td>
+                    </tr>
                 </tbody>
             </table>
         );
@@ -58,18 +60,17 @@ export class FetchData extends Component {
 
     render() {
         let contents = this.state.loading
-            ? <p><em>No searches results yet.</em></p> 
+            ? <p><em>No search results found.</em></p> 
             : FetchData.renderTable(this.state.location);
 
         let map = this.state.loading
-            ? <p><em>No searches results yet for map.</em></p>
+            ? <p><em>No search results for map.</em></p>
             : FetchData.renderMap(this.state.location);
 
         return (
             <div>
-                <h1 id="tabelLabel" >City Finder</h1>
-                <p>The only country input that will return a city with a valid zip code is "United States". (case sensitive)</p>
-                <p>Limited 10 searches per hour so after limit is reached, valid inputs will still return not found.</p>
+                <h1 id="tableLabel" >City Finder</h1>
+                <p>Enter 2 letter country code.</p>
                 <form onSubmit={this.handleSubmit} >
                     <label>
                         Country:
@@ -91,7 +92,12 @@ export class FetchData extends Component {
 
     async populateData() {
         const response = await fetch('api/cityfinder?country=' + this.state.country + '&zipcode=' + this.state.zipcode);
-        const data = await response.json();
-        this.setState({ location: data, loading: false });
+        if (response.status === 200) {
+            const data = await response.json();
+            this.setState({ location: data, loading: false });
+        }
+        else {
+            this.setState({ location: null, loading: true });
+        }
     }
 }

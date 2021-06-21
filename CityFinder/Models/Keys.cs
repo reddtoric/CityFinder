@@ -2,6 +2,6 @@
 {
     public class Keys
     {
-        public string ZipApiKey { get; set; }
+        public string ZipcodebaseApiKey { get; set; }
     }
 }
