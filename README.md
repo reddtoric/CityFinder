@@ -4,6 +4,8 @@ Code2gether June challenge: simple API + react website returns city upon user in
 
 Project deployed at [https://app-test-one.azurewebsites.net/](https://app-test-one.azurewebsites.net/). (I use the same Azure web app project for other sandbox projects as well so City Finder may or may not be up.)
 
+<img src="https://media.giphy.com/media/jDZIdSCJEw268NmSAd/giphy.gif" alt="GIF of CPR Now" />
+
 ## Frameworks/Libraries/APIs used
 
 - [zipcodebase.com API](zipcodebase.com) (zipcode searches)
