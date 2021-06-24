@@ -6,7 +6,11 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import Map from './Map';
 
 const styles = theme => ({
-    textField: {
+    textFieldLong: {
+        margin: theme.spacing(1),
+        width: '50ch',
+    },
+    textFieldShort: {
         margin: theme.spacing(1),
         width: '25ch',
     },
@@ -146,11 +150,11 @@ function countryToFlag(isoCode) {
                         <div>
                             <Autocomplete
                                 autoHighlight
-                                style={{ width: 400 }}
                                 options={this.state.countries}
                                 classes={{
                                     option: classes.option
                                 }}
+                                className={classes.textFieldLong}
                                 renderOption={(option) => (
                                     <React.Fragment>
                                         <span>{countryToFlag(option.alpha2Code)}</span>
@@ -179,7 +183,7 @@ function countryToFlag(isoCode) {
 
                             <TextField
                                 inputRef={(input) => { this.zipcodeInput = input; }}
-                                className={classes.textField}
+                                className={classes.textFieldShort}
                                 required
                                 error={this.state.zipcode === ''}
                                 id="outlined-required"
