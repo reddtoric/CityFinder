@@ -21,8 +21,8 @@ namespace CityFinder.Business
         public async Task<Location> GetCity(Query query)
         {
             string url = $"https{":"}//app.zipcodebase.com/api/v1/search?apikey={keys.ZipcodebaseApiKey}&codes={query.ZipCode}&country={query.CountryCode}";
-
             HttpClient client = clientFactory.CreateClient();
+
             try
             {
                 ZipApiResponse response = await client.GetFromJsonAsync<ZipApiResponse>(url);
@@ -35,6 +35,14 @@ namespace CityFinder.Business
             catch (System.Exception) { }
 
             return null;
+        }
+
+        public async Task<IEnumerable<Country>> GetCountries()
+        {
+            string url = "https://restcountries.eu/rest/v2/all?fields=name;alpha2Code";
+            HttpClient client = clientFactory.CreateClient();
+
+            return await client.GetFromJsonAsync<IEnumerable<Country>>(url);
         }
     }
 }

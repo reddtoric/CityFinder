@@ -8,8 +8,9 @@ Project deployed at [https://app-test-one.azurewebsites.net/](https://app-test-o
 
 ## Frameworks/Libraries/APIs used
 
+- [restcountries.eu API](https://restcountries.eu) (list of countries and 2 letter code)
 - [zipcodebase.com API](zipcodebase.com) (zipcode searches)
-- (Previously) [zipapi.us API](https://zipapi.us) (US zipcode searches)
+- [zipapi.us API](https://zipapi.us) (previously used and only US zipcode searches)
 - [React Google Maps API](https://www.npmjs.com/package/@react-google-maps/api)
 - [Google Maps API](https://developers.google.com/maps)
 - ReactJS
@@ -25,6 +26,9 @@ Project deployed at [https://app-test-one.azurewebsites.net/](https://app-test-o
 - &#x2713; `location = await UsaCityFinder.GetCity(location);` is mutable. Immutable is preferred
 
 ### Learning Journal
+
+*I really should use TypeScript  
+*Although I could send queries to third party APIs straight from the frontend, I didn't because I want more practice with creating APIs.
 
 - `dotnet user-secrets` to store development secrets such as keys
 - Use `Microsoft.Extensions.DependencyInjection`, `... .Configurations`, and `... .Options` to access development and production keys
