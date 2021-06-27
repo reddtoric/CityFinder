@@ -28,7 +28,7 @@ Project deployed at [https://app-test-one.azurewebsites.net/](https://app-test-o
 ### Learning Journal
 
 *I really should use TypeScript  
-*Although I could send queries to third party APIs straight from the frontend, I didn't because I want more practice with creating APIs.
+*Although I could send queries to third party APIs straight from the frontend, I didn't because I want to practice creating APIs.
 
 - `dotnet user-secrets` to store development secrets such as keys
 - Use `Microsoft.Extensions.DependencyInjection`, `... .Configurations`, and `... .Options` to access development and production keys
