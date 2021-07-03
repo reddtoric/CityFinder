@@ -9,7 +9,7 @@ Project deployed at [https://app-test-one.azurewebsites.net/](https://app-test-o
 ## Frameworks/Libraries/APIs used
 
 - [restcountries.eu API](https://restcountries.eu) (list of countries and 2 letter code)
-- [zipcodebase.com API](zipcodebase.com) (zipcode searches)
+- [zipcodebase.com API](https://zipcodebase.com) (zipcode searches)
 - [zipapi.us API](https://zipapi.us) (previously used and only US zipcode searches)
 - [React Google Maps API](https://www.npmjs.com/package/@react-google-maps/api)
 - [Google Maps API](https://developers.google.com/maps)
