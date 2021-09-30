@@ -1,3 +1,4 @@
+using System;
 using CityFinder.Business;
 using CityFinder.Models;
 using Microsoft.AspNetCore.Builder;
@@ -31,6 +32,9 @@ namespace CityFinder
 
             services.AddScoped<CityFinderLogic>();
             services.Configure<Keys>(Configuration.GetSection(nameof(Keys)));
+
+            // Add AutoMapper to map object to object
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddHttpClient();
         }
