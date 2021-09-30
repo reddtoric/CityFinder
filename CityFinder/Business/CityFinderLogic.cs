@@ -2,6 +2,8 @@
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using AutoMapper;
+using CityFinder.Dtos;
 using CityFinder.Models;
 using Microsoft.Extensions.Options;
 
@@ -12,10 +14,13 @@ namespace CityFinder.Business
         private readonly IHttpClientFactory clientFactory;
         private readonly Keys keys;
 
-        public CityFinderLogic(IOptions<Keys> options, IHttpClientFactory clientFactory)
+        private readonly IMapper _mapper;
+
+        public CityFinderLogic(IOptions<Keys> options, IHttpClientFactory clientFactory, IMapper mapper)
         {
             this.clientFactory = clientFactory;
             this.keys = options.Value;
+            this._mapper = mapper;
         }
 
         public async Task<Location> GetCity(Query query)
@@ -37,12 +42,12 @@ namespace CityFinder.Business
             return null;
         }
 
-        public async Task<IEnumerable<Country>> GetCountries()
+        public async Task<IEnumerable<CountryDto>> GetCountries()
         {
-            string url = "https://restcountries.eu/rest/v2/all?fields=name;alpha2Code";
+            string url = "https://restcountries.com/v3.1/all?fields=name,cca2";
             HttpClient client = clientFactory.CreateClient();
 
-            return await client.GetFromJsonAsync<IEnumerable<Country>>(url);
+            return _mapper.Map<IEnumerable<CountryDto>>(await client.GetFromJsonAsync<IEnumerable<Country>>(url));
         }
     }
 }
